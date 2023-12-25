@@ -11,7 +11,49 @@
 */
 
 class Todo {
+	todoList = [];
+	last = -1;
 
+	add(todo) {
+		this.todoList.push(todo);
+		this.last++;
+	}
+
+	remove(indexOfTodo) {
+		if (indexOfTodo > this.last) {
+			console.log("ERROR: trying to remove todo for invalid index");
+			return null;
+		}
+		for (let x = indexOfTodo; x<this.last; x++) {
+			this.todoList[x] = this.todoList[x+1];
+		}
+		this.last--;
+		this.todoList.pop();
+	}
+
+	update(index, updatedTodo) {
+		if (index > this.last) {
+			console.log("ERROR: trying to update invalid index todo");
+			return null;
+		}
+		this.todoList[index] = updatedTodo;
+	}
+
+	getAll() {
+		return this.todoList;
+	}
+
+	get(indexOfTodo) {
+		if (indexOfTodo > this.last) {
+			return null;
+		}
+		return this.todoList[indexOfTodo];
+	}
+
+	clear() {
+		this.todoList = [];
+		this.last = -1;
+	}
 }
 
 module.exports = Todo;
